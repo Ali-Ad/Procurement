@@ -1,0 +1,44 @@
+{% extends "account/home.html" %}
+{% load bootstrap4 %}
+{% block content %}
+
+<table id="table" class="table table-striped table-bordered" width="70%">
+    <thead>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Order Items</th>
+    <th>created_by</th>
+    <th>created_on</th>
+    <th>updated_by</th>
+    <th>updated_on</th>
+    <th>approved_by</th>
+    <th>Action</th>
+
+    </thead>
+
+    <tbody>
+    {% for each in Lls%}
+    <tr>
+        <td>{{each.id}}</td>
+        <td>{{each.name}}</td>
+        <!--<td>{%for x in each.order.all%} Item: {{x.vendorItems }} , quantity: {{ x.quantity }} , price: {{x.some_name}}
+            <br> {%endfor%}-->
+        <td><a href="{% url 'test' each.id %}"> view Items </a></td>
+        <td>{{each.created_by}}</td>
+        <td>{{each.created_on}}</td>
+        <td>{{each.updated_by}}</td>
+        <td>{{each.updated_on}}</td>
+        <td>non</td>
+
+        <td><a class="btn btn-danger" href="{%url 'deleteLl' each.id %}">Delete</a> &nbsp <a class="btn btn-primary"
+                                                                                             href="{%url 'updateLl' each.id %}">Update</a>
+            <a class="btn btn-primary" href="{%url 'Create_Order_item' each.id%}"> add Items </a>
+        </td>
+
+    </tr>
+    </tbody>
+    {%endfor%}
+
+</table>
+<a href="/core/createOrder" class="btn btn-primary">Create Order </a>
+{%endblock%}

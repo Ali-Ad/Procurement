@@ -1,0 +1,62 @@
+{% extends "account/home.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<table id="table" class="table table-striped table-bordered" width="70%">
+    <thead>
+    <th>Id</th>
+    <th>Order Items</th>
+    <th>Price</th>
+    <th>Created by</th>
+    <th>Updated by</th>
+    <th>Updated On</th>
+    <th>Created On</th>
+    <th>Action</th>
+    </thead>
+    <tbody>
+    {% for Order in Orders%}
+    <tr>
+        <td>{{Order.id}}</td>
+        <td>{{Order.vendorItems}}</td>
+        <td>{{Order.some_name}}</td>
+        <td>{{Order.created_by}} </td>
+        <td>{{Order.updated_by}}</td>
+        <td>{{Order.created_on}}</td>
+        <td>{{Order.updated_on}}</td>
+
+
+        <td><a class="btn btn-danger" href="{% url 'deleteOrderItem' Order.id %}"> Delete </a>
+            &nbsp
+            <a class="btn btn-primary" href="{% url 'updateOrderItem' Order.id %}"> Update </a>
+            &nbsp
+
+        </td>
+    </tr>
+   </tbody>
+
+    {%endfor%}
+    <tfoot>
+    <tr>
+        <th>Total Price =<h8 id="sum"> </h8></th>
+    </tr>
+
+    </tfoot>
+
+
+</table>
+<a href="/core/CreateOrderItem" class="btn btn-primary">Create Order Item</a>
+{% endblock %}
+
+{% block jsscript %}
+    const sum = () =>{
+            let all =0
+            {% for Order in Orders%}
+              all += {{Order.some_name}}
+              {% endfor %}
+              return all;
+    }
+    let sumdata = sum();
+    window.addEventListener('load', getsum = () => {document.getElementById("sum").innerHTML  = sumdata;
+
+{% endblock %}
+
+

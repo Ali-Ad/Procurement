@@ -1,0 +1,34 @@
+{% extends "account/home.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<table id="table" class="table table-striped table-bordered" width="70%">
+    <thead>
+    <th>Id</th>
+    <th>name</th>
+    <th>type</th>
+    <th>created_by</th>
+    <th>created_on</th>
+    <th>updated_by</th>
+    <th>updated_on</th>
+    <th>Action</th>
+    </thead>
+    <tbody>
+    {% for Item in Items %}
+    <tr>
+        <td>{{Item.id}}</td>
+        <td>{{Item.name}}</td>
+        <td>{{Item.type}}</td>
+        <td>{{Item.created_by}}</td>
+        <td>{{Item.created_on}}</td>
+        <td>{{Item.updated_by}}</td>
+        <td>{{Item.updated_on}}</td>
+        <td><a class="btn btn-danger" href="{% url 'deleteItem' Item.id %}">Delete</a>&nbsp<a class="btn btn-primary"
+                                                                                              href="{% url 'updateItem' Item.id  %}">
+            Update </a>
+        </td>
+    </tr>
+    {%endfor%}
+    </tbody>
+</table>
+<a href="/core/CreateItem" class="btn btn-primary">Create Item</a>
+{% endblock %}

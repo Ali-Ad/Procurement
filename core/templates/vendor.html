@@ -1,0 +1,38 @@
+{% extends "account/home.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<table id="table" class="table table-striped table-bordered" width="70%">
+    <thead>
+    <th>ID</th>
+    <th>name</th>
+    <th>phone</th>
+    <th>email</th>
+    <th>address</th>
+    <th>created By</th>
+    <th>created On</th>
+    <th>updated By</th>
+    <th>created on</th>
+    <th>Action</th>
+
+
+    </thead>
+    <tbody>
+    {% for vendor in vendors %}
+    <tr>
+        <td>{{vendor.id}}</td>
+        <td>{{vendor.name}}</td>
+        <td>{{vendor.phone}}</td>
+        <td>{{vendor.email}}</td>
+        <td>{{vendor.address}}</td>
+        <td>{{vendor.created_by}}</td>
+        <td>{{vendor.created_on}}</td>
+        <td>{{vendor.updated_by}}</td>
+        <td>{{vendor.updated_on}}</td>
+<td><a class="btn btn-danger" href="{% url 'delete_vendor' vendor.id %}"> Delete </a>&nbsp
+    <a  class="btn btn-primary" href="{% url 'update_vendor' vendor.id %}"> Update </a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="/core/CreateVendor" class="btn btn-primary">Create Vendor</a>
+{% endblock %}
