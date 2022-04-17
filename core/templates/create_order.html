@@ -4,10 +4,14 @@
 {% load crispy_forms_tags %}
 <form method="POST" enctype="multipart/form-data" id="form-container">
     {% csrf_token %}
-    {{ formset.management_form }}
-    {% for form in formset %}
-    <div class="bird-form">
-        {{ form }}
+
+    <div class="d-flex flex-row">
+        {{ form |crispy }}
+    </div>
+    {{ formset2.management_form }}
+    {% for form in formset2 %}
+    <div class=" d-flex flex-row bird-form ">
+        {{ form |crispy }}
     </div>
     {%endfor%}
 

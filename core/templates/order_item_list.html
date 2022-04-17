@@ -5,60 +5,35 @@
     <thead>
     <th>Id</th>
     <th>Order Items</th>
-    <th>Price</th>
-    <th>Created by</th>
+    <th>Quantity</th>
+    <th>Total Price</th>
+    <th>Created_by</th>
     <th>Updated by</th>
     <th>Updated On</th>
     <th>Created On</th>
     <th>Action</th>
     </thead>
     <tbody>
-    {% for Order in Orders%}
+    {% for item in Orders.orderitem_order.all%}
     <tr>
-        <td>{{Order.id}}</td>
-        <td>{{Order.vendorItems}}</td>
-        <td>{{Order.item_price}}</td>
-        <td>{{Order.created_by}}</td>
-        <td>{{Order.updated_by}}</td>
-        <td>{{Order.created_on}}</td>
-        <td>{{Order.updated_on}}</td>
-
-
-        <td><a class="btn btn-danger" href="{% url 'delete_order_item' Order.id %}"> Delete </a>
+        <td>{{item.id}}</td>
+        <td>{{item.vendor_items}}</td>
+        <td>{{item.quantity}}</td>
+        <td>{{item.item_price}}</td>
+        <td>{{item.created_by}}</td>
+        <td>{{item.created_on}}</td>
+        <td>{{item.updated_by}}</td>
+        <td>{{item.updated_on}}</td>
+        <td><a class="btn btn-danger" href="{% url 'delete_order_item' item.id %}"> Delete </a>
             &nbsp
-            <a class="btn btn-primary" href="{% url 'update_order_item' Order.id %}"> Update </a>
+            <a class="btn btn-primary" href="{% url 'update_order_item' item.id %}"> Update </a>
             &nbsp
 
         </td>
     </tr>
-    </tbody>
-
     {%endfor%}
-    <tfoot>
-    <tr>
-        <th>Total Price =
-            <h8 id="sum"></h8>
-        </th>
-    </tr>
-
-    </tfoot>
-
-
 </table>
-<a href="/core/CreateOrderItem" class="btn btn-primary">Create Order Item</a>
-{% endblock %}
-
-{% block jsscript %}
-const sum = () =>{
-let all =0
-{% for Order in Orders%}
-all += {{Order.some_name}}
-{% endfor %}
-return all;
-}
-let sumdata = sum();
-window.addEventListener('load', getsum = () => {document.getElementById("sum").innerHTML  = sumdata;
+<a class="btn btn-primary" href="{%url 'create_order_item' Orders.id%}"> add Items </a>
 
 {% endblock %}
-
 

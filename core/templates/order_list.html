@@ -7,11 +7,11 @@
     <th>ID</th>
     <th>Name</th>
     <th>Order Items</th>
-    <th>created_by</th>
-    <th>created_on</th>
-    <th>updated_by</th>
-    <th>updated_on</th>
-    <th>approved_by</th>
+    <th>created by</th>
+    <th>created on</th>
+    <th>updated by</th>
+    <th>updated on</th>
+    <th>approved by</th>
     <th>Action</th>
 
     </thead>
@@ -21,9 +21,10 @@
     <tr>
         <td>{{each.id}}</td>
         <td>{{each.name}}</td>
-        <!--<td>{%for x in each.order.all%} Item: {{x.vendorItems }} , quantity: {{ x.quantity }} , price: {{x.some_name}}
-            <br> {%endfor%}-->
-        <td><a href="{% url 'test' each.id %}"> view Items </a></td>
+        <!--<td>
+        {%for x in each.orderitem_order.all%} Item: {{x.vendor_items }} , quantity: {{ x.quantity }} ,total price: {{x.item_price}}
+            <br> {%endfor%}</td>-->
+        <td><a href="{% url 'view_order_item' each.id %}"> view Items </a></td>
         <td>{{each.created_by}}</td>
         <td>{{each.created_on}}</td>
         <td>{{each.updated_by}}</td>
@@ -31,7 +32,7 @@
         <td>non</td>
 
         <td><a class="btn btn-danger" href="{%url 'delete_order' each.id %}">Delete</a> &nbsp <a class="btn btn-primary"
-                                                                                             href="{%url 'update_order' each.id %}">Update</a>
+                                                                                                 href="{%url 'update_order' each.id %}">Update</a>
 
         </td>
 

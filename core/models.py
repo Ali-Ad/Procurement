@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 
 class Order(models.Model):
     name = models.CharField(max_length=64)
-    order_item = models.ManyToManyField('OrderItem', through='orderitem_order', related_name='order_item_order')
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_created_order', null=True)
@@ -19,7 +18,6 @@ class Order(models.Model):
 
 
 class OrderItem(models.Model):
-    name = models.CharField(max_length=64)
     total_price = models.FloatField(default='0', null=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -27,10 +25,7 @@ class OrderItem(models.Model):
     updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_updated_orderitem', null=True)
     vendor_items = models.ForeignKey('VendorItems', on_delete=models.CASCADE, related_name='vendoritem', null=True)
     quantity = models.IntegerField()
-    order = models.ManyToManyField(Order, related_name='orderitem_order')
-
-    def __str__(self):
-        return self.name
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='orderitem_order', null=True)
 
     @property
     def item_price(self):
@@ -38,7 +33,7 @@ class OrderItem(models.Model):
 
 
 class Item(models.Model):
-    name = models.CharField(max_length=64)
+    name = models.CharField(max_length=64, unique=True)
     type = models.CharField(max_length=64)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
