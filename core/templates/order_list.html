@@ -2,6 +2,7 @@
 {% load bootstrap4 %}
 {% block content %}
 
+
 <table id="table" class="table table-striped table-bordered" width="70%">
     <thead>
     <th>ID</th>
@@ -13,9 +14,7 @@
     <th>updated on</th>
     <th>approved by</th>
     <th>Action</th>
-
     </thead>
-
     <tbody>
     {% for each in Orders%}
     <tr>
@@ -31,10 +30,18 @@
         <td>{{each.updated_on}}</td>
         <td>non</td>
 
-        <td><a class="btn btn-danger" href="{%url 'delete_order' each.id %}">Delete</a> &nbsp <a class="btn btn-primary"
-                                                                                                 href="{%url 'update_order' each.id %}">Update</a>
+        <td class="flex">
+            <div class="f">
+                <form method="POST" action="{% url 'delete_order' each.id %}" id="delete_id">
+                    {% csrf_token %}
+                    <button type="submit" value="Delete" class="btn btn-danger delete_btn">Delete</button>
+                    <a class="btn btn-primary"
+                       href="{%url 'update_order' each.id %}">Update</a>
 
+                </form>
+            </div>
         </td>
+
 
     </tr>
     </tbody>
@@ -43,3 +50,22 @@
 </table>
 <a href="/core/createOrder" class="btn btn-primary">Create Order </a>
 {%endblock%}
+
+  {% block jsscript %}
+$('.delete_btn').click(function(e) {
+e.preventDefault();
+Swal.fire({
+title: 'Are you sure?',
+text: "You won't be able to revert this!",
+showCancelButton: true,
+confirmButtonColor: '#3085d6',
+cancelButtonColor: '#d33',
+confirmButtonText: 'Yes, delete it!',
+}).then((confirm) => {
+console.log(confirm)
+if(confirm.value) {
+$('#delete_id').submit();}
+
+})
+});
+{% endblock %}

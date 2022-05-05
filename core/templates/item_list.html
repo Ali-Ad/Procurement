@@ -15,6 +15,7 @@
     <tbody>
     {% for Item in Items %}
     <tr>
+
         <td>{{Item.id}}</td>
         <td>{{Item.name}}</td>
         <td>{{Item.type}}</td>
@@ -22,13 +23,26 @@
         <td>{{Item.created_on}}</td>
         <td>{{Item.updated_by}}</td>
         <td>{{Item.updated_on}}</td>
-        <td><a class="btn btn-danger" href="{% url 'delete_item' Item.id %}">Delete</a>&nbsp<a class="btn btn-primary"
-                                                                                              href="{% url 'update_item' Item.id  %}">
-            Update </a>
+        <td>
+            <form method="POST" action="{% url 'delete_item' Item.id %}" id="delete_id">
+                {% csrf_token %}
+                <button type="submit" value="Delete" class="delete_btn btn btn-danger">Delete</button>
+                <a class="btn btn-primary"
+                   href="{% url 'update_item' Item.id  %}">
+                    Update </a>
+            </form>
+
         </td>
+        <td>
+
+        </td>
+
     </tr>
+
     {%endfor%}
     </tbody>
+
 </table>
 <a href="/core/CreateItem" class="btn btn-primary">Create Item</a>
 {% endblock %}
+

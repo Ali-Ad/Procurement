@@ -23,7 +23,9 @@ urlpatterns = [
     path('<pk>/deleteItem', views.DeleteItem.as_view(), name='delete_item'),
     path('<pk>/updateItem', views.UpdateItem.as_view(), name='update_item'),
     path('<pk>/ViewOrderItem', views.ViewOrderItem.as_view(), name='view_order_item'),
-    path('<pk>/CreateTest', views.CreateTest.as_view())
+    path('<pk>/CreateTest', views.CreateTest.as_view()),
+    path('search',views.MyList.as_view(), name='search')
+
 
 ]
 

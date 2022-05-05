@@ -1,10 +1,16 @@
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
+from django_filters.views import FilterView
+from search_views.search import SearchListView
+from search_views.filters import BaseFilter
+from . import filters
+
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 from . import models
 from django.views.generic.base import TemplateView
 from . import forms
 import sweetify
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, request
 
 
 class ViewOrderItem(DetailView):
@@ -23,8 +29,14 @@ class CreateTest(CreateView):
 # Order
 class OrderList(ListView):
     model = models.Order
-    context_object_name = 'Orders'
     template_name = 'order_list.html'
+    context_object_name = 'Orders'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['Orders'] = models.Order.objects.all()
+
+        return context
 
 
 class CreateOrder(CreateView):
@@ -35,7 +47,9 @@ class CreateOrder(CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         formset2 = forms.OrderItemFormset(queryset=models.OrderItem.objects.none())
+
         context['formset2'] = formset2
+
         return context
 
     def post(self, request, *args, **kwargs):
@@ -131,7 +145,7 @@ class VendorItemsList(ListView):
 class CreateVendorItem(CreateView):
     model = models.VendorItems
     fields = ['vendor', 'item', 'price']
-    template_name = 'create_form.html'
+    template_name = 'create_vendor.html'
     success_url = '/core/vendorItems'
 
     def form_valid(self, form):
@@ -229,3 +243,25 @@ class UpdateItem(UpdateView):
 # Home Page
 class HomePageView(TemplateView):
     template_name = 'account/home.html'
+
+
+# class ActorsFilter(BaseFilter):
+#     search_fields = {
+#         'search_text': ['order']
+#     }
+
+
+# class ActorsSearchList(SearchListView):
+#     model = models.Order
+#     template_name = "search.html"
+#     form_class = forms.ActorSearchForm
+#     # filter_class = ActorsFilter
+
+
+class MyList(FilterView):
+    template_name = 'search.html'
+    filterset_class = filters.ContactFilter
+    context_object_name = 'tables'
+
+    def get_queryset(self):
+        return models.Order.objects.order_by('id')

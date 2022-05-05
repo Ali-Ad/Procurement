@@ -24,16 +24,37 @@
         <td>{{item.created_on}}</td>
         <td>{{item.updated_by}}</td>
         <td>{{item.updated_on}}</td>
-        <td><a class="btn btn-danger" href="{% url 'delete_order_item' item.id %}"> Delete </a>
-            &nbsp
+        <td>
+            <form method="POST" action="{% url 'delete_order_item' item.id %}" class="delete_id">
+                {% csrf_token %}
+                <button type="submit" value="Delete" class="delete_btn btn btn-danger">Delete</button>
+            </form>
             <a class="btn btn-primary" href="{% url 'update_order_item' item.id %}"> Update </a>
-            &nbsp
-
         </td>
+
     </tr>
     {%endfor%}
 </table>
 <a class="btn btn-primary" href="{%url 'create_order_item' Orders.id%}"> add Items </a>
 
+{% endblock %}
+{% block jsscript %}
+$('.delete_btn').click(function(e) {
+let this =
+e.preventDefault();
+Swal.fire({
+title: 'Are you sure?',
+text: "You won't be able to revert this!",
+showCancelButton: true,
+confirmButtonColor: '#3085d6',
+cancelButtonColor: '#d33',
+confirmButtonText: 'Yes, delete it!',
+}).then((confirm) => {
+console.log(confirm)
+if(confirm.value) {
+$('#delete_id').submit();}
+
+})
+});
 {% endblock %}
 

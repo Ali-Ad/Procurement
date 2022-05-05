@@ -28,8 +28,15 @@
         <td>{{vendor.created_on}}</td>
         <td>{{vendor.updated_by}}</td>
         <td>{{vendor.updated_on}}</td>
-<td><a class="btn btn-danger" href="{% url 'delete_vendor' vendor.id %}"> Delete </a>&nbsp
-    <a  class="btn btn-primary" href="{% url 'update_vendor' vendor.id %}"> Update </a></td>
+        <td>
+            <form method="POST" action="{% url 'delete_vendor' vendor.id %}" id="delete_id">
+                {% csrf_token %}
+                <button type="submit" value="Delete" class="delete_btn btn btn-danger">Delete</button>
+                <a class="btn btn-primary" href="{% url 'update_vendor' vendor.id %}"> Update </a>
+            </form>
+        </td>
+
+
     </tr>
     {% endfor %}
     </tbody>

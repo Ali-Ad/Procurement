@@ -6,12 +6,17 @@
     {% csrf_token %}
     {{ formset.management_form }}
     {% for form in formset %}
-    <div class="bird-form">
-        {{ form }}
+
+    <div class="bird-form d-flex flex-row justify-content-center align-items-center ">
+        {% bootstrap_field form.vendor_items%}
+
+        {% bootstrap_field form.quantity%}
+
     </div>
+    <button class="btn btn-primary" id="add-form" type="button"> Add Another Order</button>
+    <button class="btn btn-primary" type="submit">Submit</button>
     {%endfor%}
-    <button id="add-form" type="button"> Add Another Order</button>
-    <button type="submit">Submit</button>
+
 </form>
 
 {% endblock %}
@@ -35,7 +40,7 @@ formNum++
 newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
 container.insertBefore(newForm, addButton)
 
- totalForms.setAttribute('value', `${formNum+1}`)
+totalForms.setAttribute('value', `${formNum+1}`)
 }
 
 {% endblock %}

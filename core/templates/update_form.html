@@ -1,13 +1,18 @@
 {% extends "account/home.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-<div class="row align-items-center">
-    <div class="w-25 container h-100 ">
+{%load bootstrap4 %}
+
+<div class="col-md-3 align-items-center justify-content-center card " style="margin-left:40%;margin-top:50px">
+    <div>
         <form method="post">
             {% load crispy_forms_filters %}
             {% csrf_token %}
-            {{ form|crispy }}
+            {% bootstrap_form form %}
             <input type="submit" value="Save">
+            <input type="submit" value="Delete">
         </form>
     </div>
+</div>
 </div>
 {% endblock %}

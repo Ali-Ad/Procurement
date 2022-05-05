@@ -24,8 +24,13 @@
         <td>{{vendorItem.created_on}}</td>
         <td>{{vendorItem.updated_by}}</td>
         <td>{{vendorItem.updated_on}}</td>
-        <td><a class="btn btn-danger" href="{% url 'delete_vendor_items' vendorItem.id %}"> Delete </a>&nbsp
-            <a class="btn btn-primary" href="{% url 'update_vendor_items' vendorItem.id %}"> Update </a>
+        <td>
+            <form method="POST" action="{% url 'delete_vendor_items' vendorItem.id %}" id="delete_id">
+                {% csrf_token %}
+                <button type="submit" value="Delete" class="delete_btn btn btn-danger">Delete</button>
+                <a class="btn btn-primary" href="{% url 'update_vendor_items' vendorItem.id %}"> Update </a>
+            </form>
+
         </td>
     </tr>
     {% endfor %}
@@ -35,14 +40,3 @@
 
 {% endblock %}
 
-{% block jsscript %}
-const sum = () =>{
-let all =0
-{% for Order in Orders%}
-all += {{Order.some_name}}
-{% endfor %}
-return all;
-}
-let sumdata = sum();
-window.addEventListener('load', getsum = () => {document.getElementById("sum").innerHTML  = sumdata; console.log(sumdata)})
-{% endblock %}
