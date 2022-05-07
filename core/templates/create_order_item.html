@@ -6,10 +6,8 @@
     {% csrf_token %}
     {{ formset.management_form }}
     {% for form in formset %}
-
     <div class="bird-form d-flex flex-row justify-content-center align-items-center ">
         {% bootstrap_field form.vendor_items%}
-
         {% bootstrap_field form.quantity%}
 
     </div>

@@ -2,40 +2,35 @@
 {% load bootstrap4 %}
 {% block content %}
 {% load crispy_forms_tags %}
-<div class="row">
-    <div class="col">
-
-    </div>
-    <div class="col-7 justify-content-center align-self-md-center">
-        <form method="POST" enctype="multipart/form-data" id="form-container">
-            {% csrf_token %}
-            <div class="">
-                <div class="col-4">
-                    {% bootstrap_field form.name %}
-                </div>
-                {{ formset2.management_form }}
-                {% for form in formset2 %}
-                <div class="bird-form col-4 card  align-items-center" style="margin-bottom:8px ;">
-                    <div style="display:flex;" class="">
-                        {% bootstrap_field form.vendor_items %}
-                        {% bootstrap_field form.quantity %}
-
-                    </div>
-                    {%endfor%}
-
-                </div>
+<div class="row justify-content-center align-items-center">
+    <form method="POST" enctype="multipart/form-data" id="form-container">
+        {% csrf_token %}
+        <div class="">
+            <div class="col">
+                {% bootstrap_field form.name %}
             </div>
+            {{ formset2.management_form }}
+            {% for form in formset2 %}
+            <div class="bird-form col card  align-items-center" style="margin-bottom:6px ;">
+                <div style="display:flex;" class="">
+                    {% bootstrap_field form.vendor_items %}
+                    {% bootstrap_field form.quantity %}
+                </div>
+                {%endfor%}
 
-            <button class="btn btn-primary  " id="add-form" type="button"> Add
-                Another Order
-            </button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
 
-            <a href="javascript:window.location.reload(true)" class="btn btn-success">Reset Form<i
-                    class="fa-solid fa-arrows-rotate"></i></a>
-        </form>
-    </div>
+        <button class="btn btn-primary  " id="add-form" type="button"> Add
+            Another Order
+        </button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <a href="javascript:window.location.reload(true)" class="btn btn-success">Reset Form<i
+                class="fa-solid fa-arrows-rotate"></i></a>
+    </form>
 </div>
+
 
 {% endblock %}
 

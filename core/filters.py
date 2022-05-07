@@ -5,4 +5,4 @@ from .models import Order
 class ContactFilter(FilterSet):
     class Meta:
         model = Order
-        fields = ['name','created_by']
+        fields = ['name']
